@@ -50,3 +50,10 @@ class BaseModel:
         instance_dict['created_at'] = self.created_at.isoformat()
         instance_dict['updated_at'] = self.updated_at.isoformat()
         return instance_dict
+
+    @classmethod
+    def from_dict(cls, data):
+        """
+        Creates a BaseModel instance from a dictionary representation
+        """
+        return cls(**data)
