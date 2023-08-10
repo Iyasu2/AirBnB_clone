@@ -131,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             for key_dict in obj_dict:
                 classname = key.split('.')
-                if classname[0] = tokens[0]:
+                if classname[0] == tokens[0]:
                     list_all.append(str(obj_dict[key_dict]))
             print(list_all)
             return
