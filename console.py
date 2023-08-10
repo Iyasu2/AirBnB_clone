@@ -8,6 +8,7 @@ import cmd
 import shlex
 import models
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -17,6 +18,8 @@ class HBNBCommand(cmd.Cmd):
     that is a command line creating tool
     '''
     prompt = '(hbnb) '
+
+    classes = {'BaseModel': BaseModel, 'User': User}
 
     def do_quit(self, arg):
         '''
@@ -42,8 +45,9 @@ class HBNBCommand(cmd.Cmd):
         create a new instance, saves it and prints the id
         '''
         if argument:
-            if argument == "BaseModel":
-                instance = BaseModel()
+            if argument in self.classes:
+                get_class = getattr(sys.modules[__name__], argument)
+                instance = get_class()
                 models.storage.save()
                 print(instance.id)
             else:
@@ -64,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokens) == 1:
             print("** instance id missing **")
             return
-        elif tokens[0] != "BaseModel":
+        elif tokens[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -87,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokens) == 1:
             print("** instance id missing **")
             return
-        elif tokens[0] != "BaseModel":
+        elif tokens[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
@@ -108,12 +112,20 @@ class HBNBCommand(cmd.Cmd):
         tokens = shlex.split(argument)
         obj_dict = models.storage.all()
 
-        if tokens[0] != "BaseModel":
+        if len(tokens) == 0:
+            for key_dict in obj_dict:
+                list_all.append(str(obj_dict[key_dict]))
+            print(list_all)
+            return
+
+        if tokens[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
             for key_dict in obj_dict:
-                list_all.append(str(obj_dict[key_dict]))
+                classname = key.split('.')
+                if classname[0] = tokens[0]:
+                    list_all.append(str(obj_dict[key_dict]))
             print(list_all)
             return
 
@@ -134,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         elif len(tokens) == 3:
             print("** value missing **")
             return
-        elif tokens[0] != "BaseModel":
+        elif tokens[0] not in self.classes:
             print("** class doesn't exist **")
             return
         obj_dict = models.storage.all()
