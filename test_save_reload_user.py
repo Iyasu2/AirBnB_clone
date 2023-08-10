@@ -2,6 +2,7 @@
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
 
 all_objs = storage.all()
 print("-- Reloaded objects --")
@@ -25,3 +26,8 @@ my_user2.email = "airbnb2@mail.com"
 my_user2.password = "root"
 my_user2.save()
 print(my_user2)
+
+print("__ Create a new amenity __")
+my_amenity = Amenity()
+my_amenity.name = "Iyasu"
+print(my_amenity)
