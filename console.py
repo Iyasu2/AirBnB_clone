@@ -165,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
         except AttributeError:
             pass
         setattr(obj_dict[key_dict], tokens[2], tokens[3])
-        models.storage.save
+        models.storage.save()
 
 
 if __name__ == '__main__':
