@@ -7,6 +7,7 @@ be built
 import cmd
 import shlex
 import models
+import sys
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -130,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             for key_dict in obj_dict:
-                classname = key.split('.')
+                classname = key_dict.split('.')
                 if classname[0] == tokens[0]:
                     list_all.append(str(obj_dict[key_dict]))
             print(list_all)
